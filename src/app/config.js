@@ -1,4 +1,4 @@
 const rootURL = 'http://localhost:5001';
-const checkEmail = rootURL+ '/customer/checkemail';
-const getAllCustomers = rootURL + '/customer/getall';
-export{rootURL,checkEmail,getAllCustomers}
+const getCustomer = rootURL+ '/customer/get';
+const listCustomers = rootURL + '/customer/list';
+export{rootURL,getCustomer,listCustomers}
