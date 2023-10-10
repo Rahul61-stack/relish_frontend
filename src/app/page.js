@@ -1,16 +1,17 @@
-import Image from 'next/image'
-import NavBar from './components/navbar/NavBar'
-import { NavElement } from './components/navbar/NavElement'
-import PreSignup from './components/Auth/Presignup/PreSignup'
-import HomePage from './components/Home/HomePage'
-import Signup from './components/Auth/Signup/Signup'
+'use client';
 
+import { Provider } from 'react-redux';
+import HomePage from './home/HomePage';
+import store from './store';
 export default function Home() {
-  
   return (
-    
-    <main className=''>
-      <Signup></Signup>
-    </main>
+    <Provider store={store}>
+      <main className=''>
+        <div className='h-full bg-gradient-to-r from-slate-600 to-black'>
+        <HomePage/>
+        </div>
+      </main>
+    </Provider>
+
   )
 }
