@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {}
-
-
 module.exports = {
     images: {
       remotePatterns: [
@@ -11,6 +9,12 @@ module.exports = {
           port: '',
           pathname: "/pw/**",
         },
+        {
+          protocol: "https",
+          hostname: "raw.githubusercontent.com",
+          port: '',
+          pathname: "/Rahul61-stack/Images/main/RELISH/**"
+        }
       ],
     },
-  }
+}

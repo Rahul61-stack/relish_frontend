@@ -1,100 +1,110 @@
-'use client'
-import { MagnifyingGlassIcon, ShoppingCartIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/solid'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import store from '../store'
-import { useSelector } from 'react-redux'
+"use client";
+import {
+  MagnifyingGlassIcon,
+  UserCircleIcon,
+  UserIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+// import {store} from "../store";
+import { useSelector } from "react-redux";
+import TemporaryDrawer from "../cart/page";
+import LeftDrawer from "./leftDrawer";
+import SearchBar from "./searchBar";
 
-export default function navelement(){
-    const [activeElement,setActiveElement] = useState('home')
-    const [searchToggle,setSearchToggle] = useState(false)
-    const [showcart,setshowCart] = useState(true)
-    const [cartnumber,setcartNumber] = useState({bool:false,value:0})
-    const cartstate = useSelector((state)=>store.getState()['cartreducer'])
-    //FUNCTION FOR LINKS
-    function clickHandler(string){
-        setActiveElement(string)
-        console.log(activeElement)
-    }
+export default function navelement() {
+  const [searchToggle, setSearchToggle] = useState(false);
+  const [cartnumber, setcartNumber] = useState({ bool: false, value: 0 });
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const cart = useSelector(state=>state.cart.list)
+  const auth = useSelector(state=>state.auth.login)
 
-    //FUNCTION FOR SEARCH 
-    function searchHandler(){
-        if(searchToggle){
-            console.log("Search Function here")
-        }
-        else{
-            setSearchToggle(true)
-            console.log(searchToggle)
-        }
+  //FUNCTION FOR SEARCH
+  function searchHandler() {
+    if (searchToggle) {
+    } else {
+      setSearchToggle(true);
     }
+  }
+  //EFFECT FOR UPDATING NO OF ITEMS IN CART
+  useEffect(() => {
+    if (cart.length > 0) {
+      setcartNumber({ bool: true, value: cart.length });
+    } else setcartNumber({ bool: false, value: 0 });
+  }, [cart]);
 
-    //FUNCTION FOR MAKING CART VISIBLE
-    function cartHandler(){
-        setshowCart(!showcart)
-        console.log(showcart)
-        store.dispatch({
-            type:'showcart',
-            payload:{showcart}
-        })
-        console.log(store.getState(),'NAV')
-    }
-    let num=0;
-    //EFFECT FOR UPDATING NO OF ITEMS IN CART
-    useEffect(()=>{
-        if(cartstate.length>0){
-            setcartNumber({bool:true,value:cartstate.length})
-        }
-        else
-            setcartNumber({bool:false,value:0})
-        let num = cartstate.length
-    },[cartstate])
-    return(
-        <div>
-            <div className="flex flex-row pt-10 px-5 ">
-                <div id="image" className="text-white w-1/12">
-                    <h1 className="text-xl font-semibold">R E L I S H</h1>
-                </div>
-                <div className="flex flex-row w-5/12">
-                    <div id="links" className="text-white px-3 hover:text-gray-500">
-                        <Link onClick={()=>clickHandler('home')} href="/">Home</Link>
-                    </div>
-                    <div id="links" className="text-white px-3 hover:text-gray-500">
-                        <Link onClick={()=>clickHandler('category')} href="#">Categories</Link>
-                    </div>
-                    <div id="links" className="text-white px-3 hover:text-gray-500">
-                        <Link onClick={()=>clickHandler('sale')} href="#">Sale</Link>
-                    </div>
-               </div>
-               <div className="flex flex-row justify-end w-6/12">
-                    <div className='basis-3/5 '>
-                        {searchToggle&&<div>
-                            <input className = "appearance-none -translate-y-2 text-black shadow-xl w-11/12 py-1 border-solid ring-xl rounded-lg bg-gray-500 pl-1" 
-                            placeholder='Search for items...'/>
-                                <button className='w-1/12 -translate-x-7' onClick={()=>setSearchToggle(false)}>
-                                    <XMarkIcon className="h-6 w-6 font-bold"/>
-                                </button>
-                            </div>}
-                    </div>
-                    <div className="pr-5">
-                        <button onClick={()=>searchHandler()}>
-                        <MagnifyingGlassIcon className="h-6 w-6"/>
-                        </button>
-                    </div>
-                    <div className="px-5 max-h-7">
-                            <button onClick={cartHandler}  >
-                            <ShoppingCartIcon className="h-6 w-6"/>
-                            </button>
-                            {cartnumber.bool&&<div className='bg-white h-4 w-4 rounded-full translate-x-4 -translate-y-10'>
-                                <p className=' text-black text-center text-xs font-extrabold' >{cartnumber.value}</p>
-                            </div>}
-                    </div>
-                    <div className="px-5">
-                        <Link href="/user/checkemail">
-                            <UserIcon className='h-6 w-6'/>
-                        </Link>
-                    </div>
-               </div>
-            </div>
+  useEffect(() => {
+    setLoggedIn(auth.isLoggedIn);
+  }, [auth]);
+  return (
+    <div>
+      <div className="flex h-fit flex-row pt-10 pr-5 md:px-5">
+        <div className="md:hidden -translate-y-2">
+          <LeftDrawer></LeftDrawer>
         </div>
-    )
+        <div id="image" className="text-white w-[50%] md:w-2/12">
+          <Link href="/ ">
+            <h1 className="text-xl font-extrabold">R E L I S H</h1>
+          </Link>
+        </div>
+        <div className="md:flex md:flex-row hidden md:w-4/12">
+          <div id="links" className="text-white px-3 hover:text-gray-500">
+            <Link href="/">Home</Link>
+          </div>
+          <div id="links" className="text-white px-3 hover:text-gray-500">
+            <Link href="/category">Categories</Link>
+          </div>
+          <div id="links" className="text-white px-3 hover:text-gray-500">
+            <Link href="/category/onsale">Sale</Link>
+          </div>
+        </div>
+        <div className="flex flex-row justify-end w-full">
+          <div className="basis-3/5 text-white ">
+            {searchToggle && (
+              <div className="flex -translate-y-3">
+                <SearchBar></SearchBar>
+                <button
+                  className="w-1/12 -translate-x-7"
+                  onClick={() => setSearchToggle(false)}
+                >
+                  <XMarkIcon className="h-6 w-6 translate-y-1 font-bold" />
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="md:pr-5">
+            <button onClick={() => searchHandler()}>
+              <MagnifyingGlassIcon className="h-6 w-6" />
+            </button>
+          </div>
+          <div className="md:px-5 max-h-7">
+            <button>
+              <TemporaryDrawer></TemporaryDrawer>
+            </button>
+            {cartnumber.bool && (
+              <div className="bg-white h-4 w-4 rounded-full translate-x-4 -translate-y-10">
+                <p className=" text-black text-center text-xs font-extrabold">
+                  {cartnumber.value}
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="md:px-5">
+            {isLoggedIn ? (
+              <div>
+                <Link href="/user/profile">
+                  <UserCircleIcon className="h-6 w-6" />
+                </Link>
+              </div>
+            ) : (
+              <Link href="/user/signup">
+                <UserIcon className="h-6 w-6" />
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

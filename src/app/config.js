@@ -1,11 +1,68 @@
-const rootURL = 'http://localhost:5001';
-const getCustomer = rootURL+ '/customer/get';
-const addCustomer = rootURL + '/customer/add'
-const listCustomers = rootURL + '/customer/list';
-const additem = rootURL + '/item/add';
-const listitem = rootURL + '/item/list';
-const getitem = rootURL + '/item/get';
+import process from "process";
 
-const macbookpic1 = "https://drive.google.com/file/d/1KP1h_ou2CFF6cHq-zT4dvA47T36zULQQ/view?usp=share_link"
-const pspic1 = "https://drive.google.com/file/d/1UtJ4yAuGVa48Wkd5fATm7W09v_Srwaeq/view?usp=share_link"
-export{rootURL,getCustomer,addCustomer,listCustomers,additem,listitem,getitem}
+export function apiRoutes(api, param) {
+  const rootUrl = "http://localhost:5002";
+  switch (api) {
+    case "getallitems":
+      return rootUrl + "/items/getall";
+    case "getItem":
+      return rootUrl + "/items/" + param;
+    case "addItem":
+      return rootUrl + "/items";
+    case "getallcustomers":
+      return rootUrl + "/customers/getall";
+    case "addcustomer":
+      return rootUrl + "/customers";
+    case "getcustomer":
+      return rootUrl + "/customers/" + param;
+  }
+}
+
+export const indianStates = [
+  { label: "Andhra Pradesh", value: "Andhra Pradesh" },
+  { label: "Arunachal Pradesh", value: "Arunachal Pradesh" },
+  { label: "Assam", value: "Assam" },
+  { label: "Bihar", value: "Bihar" },
+  { label: "Chhattisgarh", value: "Chhattisgarh" },
+  { label: "Goa", value: "Goa" },
+  { label: "Gujarat", value: "Gujarat" },
+  { label: "Haryana", value: "Haryana" },
+  { label: "Himachal Pradesh", value: "Himachal Pradesh" },
+  { label: "Jharkhand", value: "Jharkhand" },
+  { label: "Karnataka", value: "Karnataka" },
+  { label: "Kerala", value: "Kerala" },
+  { label: "Madhya Pradesh", value: "Madhya Pradesh" },
+  { label: "Maharashtra", value: "Maharashtra" },
+  { label: "Manipur", value: "Manipur" },
+  { label: "Meghalaya", value: "Meghalaya" },
+  { label: "Mizoram", value: "Mizoram" },
+  { label: "Nagaland", value: "Nagaland" },
+  { label: "Odisha", value: "Odisha" },
+  { label: "Punjab", value: "Punjab" },
+  { label: "Rajasthan", value: "Rajasthan" },
+  { label: "Sikkim", value: "Sikkim" },
+  { label: "Tamil Nadu", value: "Tamil Nadu" },
+  { label: "Telangana", value: "Telangana" },
+  { label: "Tripura", value: "Tripura" },
+  { label: "Uttar Pradesh", value: "Uttar Pradesh" },
+  { label: "Uttarakhand", value: "Uttarakhand" },
+  { label: "West Bengal", value: "West Bengal" },
+  {
+    label: "Andaman and Nicobar Islands",
+    value: "Andaman and Nicobar Islands",
+  },
+  { label: "Chandigarh", value: "Chandigarh" },
+  {
+    label: "Dadra and Nagar Haveli and Daman and Diu",
+    value: "Dadra and Nagar Haveli and Daman and Diu",
+  },
+  { label: "Lakshadweep", value: "Lakshadweep" },
+  { label: "Delhi", value: "Delhi" },
+  { label: "Puducherry", value: "Puducherry" },
+];
+
+export const paymentType = [
+  { label: "UPI/BHIM/PAYTM", value: "upi" },
+  { label: "Credit Card/Debit Card", value: "card" },
+  { label: "Cash on Delivery", value: "cod" },
+];

@@ -1,17 +1,20 @@
-'use client';
+"use client";
 
-import { Provider } from 'react-redux';
-import HomePage from './home/HomePage';
-import store from './store';
+import Page from "./home/(home)/page";
+import NavBar from './navbar/NavBar'
+import { Provider } from "react-redux";
+import {store} from "./store";
 export default function Home() {
   return (
-    <Provider store={store}>
-      <main className=''>
-        <div className='h-full bg-gradient-to-r from-slate-600 to-black'>
-        <HomePage/>
-        </div>
-      </main>
-    </Provider>
-
-  )
+    <main className="">
+      <div className="h-full bg-gradient-to-r from-slate-600 to-black">
+        <Provider store={store}>
+        <div className="bg-gradient-to-r from-slate-600 to-black opacity-100 z-50 w-full -translate-y-5 fixed">
+            <NavBar></NavBar>
+          </div>
+          <Page />
+        </Provider>
+      </div>
+    </main>
+  );
 }

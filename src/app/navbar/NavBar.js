@@ -7,4 +7,3 @@ export default function navbar(){
         </div>
     )
 }
-// no page.js created since this is in layout of the webpage
