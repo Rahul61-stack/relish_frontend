@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import NavBar from "../../navbar/NavBar";
+import { apiRoutes } from "../../config";
 
 function CatergoryDetails() {
   const params = useParams();
@@ -12,7 +13,7 @@ function CatergoryDetails() {
   useEffect(() => {
     try {
       axios
-        .get("http://localhost:5002/items/getall")
+        .get(apiRoutes("getallitems"))
         .then((response) => setItems(response.data));
     } catch (err) {
       console.log(err);

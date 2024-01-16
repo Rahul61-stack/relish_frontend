@@ -3,13 +3,14 @@ import axios from "axios";
 import ItemTray from "../../home/(home)/ItemTray";
 import { useEffect, useState } from "react";
 import NavBar from "../../navbar/NavBar";
+import { apiRoutes } from "../../config";
 
 function bestSellers() {
   const [items, setItems] = useState([]);
   useEffect(() => {
     try {
       axios
-        .get("http://localhost:5002/items/getall")
+        .get(apiRoutes("getallitems"))
         .then((response) => setItems(response.data));
     } catch (err) {
       console.error(err.message);

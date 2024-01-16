@@ -1,7 +1,7 @@
 import process from "process";
 
 export function apiRoutes(api, param) {
-  const rootUrl = "http://localhost:5002";
+  const rootUrl = "https://relish-backend-node-js.vercel.app";
   switch (api) {
     case "getallitems":
       return rootUrl + "/items/getall";

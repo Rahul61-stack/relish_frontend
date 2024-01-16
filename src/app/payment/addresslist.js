@@ -7,6 +7,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { apiRoutes } from "../config";
 
 function AddressList({ address, id, callBack }) {
   const [showAddress, setShowAddress] = useState(false);
@@ -17,7 +18,7 @@ function AddressList({ address, id, callBack }) {
   useEffect(() => {
     if (customer.isLoggedIn) {
       axios
-        .get("http://localhost:5002/customers/" + customer.id)
+        .get(apiRoutes("getcustomer", customer.id))
         .then((response) => setAddressList(response.data.address));
     } else {
       setAddressList(address);

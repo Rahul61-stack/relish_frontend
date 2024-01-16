@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import { listitem } from "../../config";
-
+import { apiRoutes } from "../../config";
 export default function Page() {
   const [items, setItems] = useState([]);
 
@@ -14,7 +13,7 @@ export default function Page() {
   useEffect(() => {
     try {
       axios
-        .get("http://localhost:5002/items/getall")
+        .get(apiRoutes("getallitems"))
         .then((response) => setItems(response.data));
     } catch (err) {
       console.log(err);

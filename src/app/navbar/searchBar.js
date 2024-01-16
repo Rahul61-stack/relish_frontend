@@ -3,6 +3,7 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ListItemText } from "@mui/material";
+import { apiRoutes } from "../config";
 const filter = createFilterOptions();
 
 export default function SearchBar() {
@@ -18,7 +19,7 @@ export default function SearchBar() {
     setSuggestions(temp.map((item) =>item.name));
   }
   useEffect(() => {
-    axios.get("http://localhost:5002/items/getall").then((response) => {
+    axios.get(apiRoutes("getallitems")).then((response) => {
       setItems(response.data);
     });
   });
