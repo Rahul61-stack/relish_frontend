@@ -5,9 +5,9 @@ export function apiRoutes(api, param) {
   switch (api) {
     case "getallitems":
       return rootUrl + "/items/getall";
-    case "getItem":
+    case "getitem":
       return rootUrl + "/items/" + param;
-    case "addItem":
+    case "additem":
       return rootUrl + "/items";
     case "getallcustomers":
       return rootUrl + "/customers/getall";
@@ -15,6 +15,8 @@ export function apiRoutes(api, param) {
       return rootUrl + "/customers";
     case "getcustomer":
       return rootUrl + "/customers/" + param;
+    case "loginvalidation":
+      return rootUrl + "/customers/loginvalidation"
   }
 }
 

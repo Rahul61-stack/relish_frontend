@@ -1,6 +1,6 @@
 "use client";
 
-import { addCustomer } from "../../config";
+import { addCustomer, apiRoutes } from "../../config";
 import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ export default function Signup() {
   function signupHandler() {
     let data;
     data = { email: customer.email, name: customer.name,password: customer.password};
-    axios.post("http://localhost:5002/customers", data,{
+    axios.post(apiRoutes("addcustomer"), data,{
       headers:{
         "Content-Type":"application/json"
       }

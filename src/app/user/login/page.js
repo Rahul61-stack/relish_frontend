@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store";
+import { apiRoutes } from "../../config";
 
 export default function Login() {
   const [customer, setCustomer] = useState({ email: "", password: "" });
@@ -20,7 +21,7 @@ export default function Login() {
   async function loginHandler() {
     try {
       const response = await axios.post(
-        "http://localhost:5002/customers/loginvalidation",
+        apiRoutes("loginvalidation"),
         customer,
       );
       dispatch(authActions.login({id:response.data.id}))

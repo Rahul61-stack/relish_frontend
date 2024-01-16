@@ -2,7 +2,7 @@
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import { indianStates, paymentType } from "../config";
+import { apiRoutes, indianStates, paymentType } from "../config";
 import { useSelector } from "react-redux";
 // import {store} from "../store";
 import axios from "axios";
@@ -50,7 +50,7 @@ export default function CheckOut() {
     if (customer.isLoggedIn) {
       try {
         const response = await axios.patch(
-          "http://localhost:5002/customers/" + customer.id,
+          apiRoutes("getcustomer",customer.id),
           address,
         );
         setConfirmMsg(response.data.message);

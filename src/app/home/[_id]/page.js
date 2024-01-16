@@ -7,6 +7,7 @@ import NavBar from "../../navbar/NavBar";
 import Rating from "../../starrating"
 import { useDispatch, useSelector } from "react-redux";
 import {cartActions} from "../../store/index"
+import { apiRoutes } from "../../config";
 
 export default function Page() {
   const params = useParams();
@@ -35,7 +36,7 @@ export default function Page() {
 
   //FUNCTION TO GET THE ITEM WITH ID
   useEffect(() => {
-    const getItem = 'http://localhost:5002/items/' + params._id
+    const getItem = apiRoutes("getitem",params._id)
     axios.get(getItem).then((response) => setItem(response.data))
   }, []);
 
