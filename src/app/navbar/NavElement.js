@@ -7,7 +7,6 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// import {store} from "../store";
 import { useSelector } from "react-redux";
 import TemporaryDrawer from "../cart/page";
 import LeftDrawer from "./leftDrawer";
@@ -15,8 +14,9 @@ import SearchBar from "./searchBar";
 
 export default function navelement() {
   const [searchToggle, setSearchToggle] = useState(false);
-  const [cartnumber, setcartNumber] = useState({ bool: false, value: 0 });
+  const [cartnumber, setCartNumber] = useState({ bool: false, value: 0 });
   const [isLoggedIn, setLoggedIn] = useState(false);
+
   const cart = useSelector(state=>state.cart.list)
   const auth = useSelector(state=>state.auth.login)
 
@@ -29,9 +29,7 @@ export default function navelement() {
   }
   //EFFECT FOR UPDATING NO OF ITEMS IN CART
   useEffect(() => {
-    if (cart.length > 0) {
-      setcartNumber({ bool: true, value: cart.length });
-    } else setcartNumber({ bool: false, value: 0 });
+      setCartNumber({ bool: cart.length>0, value: cart.length });
   }, [cart]);
 
   useEffect(() => {

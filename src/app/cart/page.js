@@ -1,6 +1,7 @@
 "use client";
 
-import * as React from "react";
+import React from "react";
+import { useState,useEffect } from "react";
 import SubCart from "./subcart";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -18,10 +19,10 @@ import {
 } from "@heroicons/react/24/solid";
 
 export default function TemporaryDrawer() {
-  const [state, setState] = React.useState(false);
-  const [cart, setCart] = React.useState();
-  const [emptyCart, setEmptyCart] = React.useState(true);
-  const [subtotal, setSubTotal] = React.useState(0);
+  const [state, setState] = useState(false);
+  const [cart, setCart] = useState();
+  const [emptyCart, setEmptyCart] = useState(true);
+  const [subtotal, setSubTotal] = useState(0);
   const statetemp = useSelector((state) => state.cart.list);
   const customer = useSelector((state) => state.auth.login);
   const dispatch = useDispatch();
@@ -71,7 +72,7 @@ export default function TemporaryDrawer() {
     return value;
   }
   //CHECK IF THE CART IS EMPTY OR NOT AND SET THE TOGGLE FOR DISPLAY
-  React.useEffect(() => {
+  useEffect(() => {
     setCart(statetemp);
     if (statetemp.length == 0) {
       setEmptyCart(true);
@@ -81,7 +82,7 @@ export default function TemporaryDrawer() {
   }, [statetemp]);
 
   //EFFECT TO SET THE SUBTOTAL BASED ON THE CART ITEMS
-  React.useEffect(() => {
+  useEffect(() => {
     if (statetemp.length != 0) {
       setSubTotal(caculateSubtotal(statetemp));
     }
@@ -171,7 +172,6 @@ export default function TemporaryDrawer() {
             <div className="border-b-2 border-black">
               <SubCart subtotal={subtotal}></SubCart>
             </div>
-            {customer.isLoggedIn ? (
               <button className="bg-slate-800 w-full translate-y-5 p-5">
                 <Link
                   className="text-white text-center"
@@ -181,17 +181,6 @@ export default function TemporaryDrawer() {
                   Proceed to Checkout
                 </Link>
               </button>
-            ) : (
-              <button className="bg-slate-800 w-full translate-y-5 p-5">
-                <Link
-                  className="text-white text-center"
-                  onClick={toggleDrawer(anchor, false)}
-                  href="/user/login"
-                >
-                  Please login to continue to checkout
-                </Link>
-              </button>
-            )}
           </div>
         )}
       </div>

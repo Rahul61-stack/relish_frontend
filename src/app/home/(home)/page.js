@@ -1,7 +1,7 @@
 "use client";
 import ItemTray from "./ItemTray";
 import Display from "./Display";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -9,31 +9,25 @@ import { apiRoutes } from "../../config";
 import Loader from "../../loader";
 
 export default function Page() {
-  console.time("start");
   const [items, setItems] = useState([]);
   const [loader, setLoader] = useState(true);
-
+  console.log("Rerender")
   //TO GET ITEMS FROM MONGO
-  if (loader === true) {
-    try {
-      axios
-        .get(apiRoutes("getallitems"))
-        .then((response) => setItems(response.data));
-      console.log("AFter items");
-    } catch (err) {
-      console.log(err);
-    }
-  }
   useEffect(()=>{
-    if(items[0]!=undefined){
-      setLoader(false)
-    }
-  },[items])
+      try {
+        axios
+          .get(apiRoutes("getallitems"))
+          .then((response) => {
+            setItems(response.data)
+            setLoader(false)
+          });
+      } catch (err) {
+        console.log(err);
+      }
+  },[])
   //SETTING THE PREVIEW OF BEST SELLERS AND ITEMS ON SALE
-  const bestSellers = items.filter((item) => item.rating > 4).slice(0, 3);
-  const saleItems = items.filter((item) => item.sale === true).slice(0, 3);
-  console.log("YES");
-  console.timeEnd("start");
+  const bestSellers = useMemo(()=> items.filter((item) => item.rating > 4).slice(0, 3),[items]);
+  const saleItems = useMemo(()=> items.filter((item) => item.sale === true).slice(0, 3),[items]);
   return (
     <div>
       {loader ? (
